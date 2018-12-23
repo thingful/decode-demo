@@ -20,11 +20,11 @@ RUN curl --location -s -o /tmp/adr-tools-$ADR_TOOLS_VERSION.tar.gz \
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/lib/adr-tools/src
 
-RUN addgroup -g ARG_GID -S demo \
-  && adduser -u ARG_UID -S demo -G demo \
-  || adduser -u ARG_UID -S demo
+RUN addgroup -g ARG_GID -S decode \
+  && adduser -u ARG_UID -S decode -G decode \
+  || adduser -u ARG_UID -S decode
 
-USER ceaserver
+USER decode
 
 RUN mix local.hex --force \
   && mix archive.install --force hex phx_new 1.4.0 \
