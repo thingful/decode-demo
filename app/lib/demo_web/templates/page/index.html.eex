@@ -1,35 +1,39 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
-</section>
+<div class="row">
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Policy Store</h5>
+        <p class="card-text">This page provides a simple interface to the policy store service, which allows policies
+          to be
+          created or deleted.</p>
+        <a class="btn btn-primary" href="/policies">Open Service</a>
+      </div>
+    </div>
+    <br>
+  </div>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section>
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Encoder Service</h5>
+        <p class="card-text">This page provides a simple interface to the stream encoder service, and allows you to
+          create or delete encoded streams.</p>
+        <a class="btn btn-primary" href="/encoder">Open Service</a>
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Datastore</h5>
+        <p class="card-text">This page provides a simple interface to the encrypted data store, which allows you to
+          pull encrypted data
+          from the datastore then decrypt it using Zenroom in the browser.</p>
+        <a class="btn btn-primary" href="/datastore">Open Service</a>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

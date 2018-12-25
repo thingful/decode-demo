@@ -3,6 +3,7 @@ defmodule DecodeDemoWeb.UserSocket do
 
   ## Channels
   # channel "room:*", DecodeDemoWeb.RoomChannel
+  channel "decode:*", DecodeDemoWeb.DecodeChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

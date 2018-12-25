@@ -1,0 +1,116 @@
+<p>This page sends requests to the IoT policystore to create or delete policies. To use this page you must
+  supply a valid public key as we do not use Zenroom in this page to create new key pairs.</p>
+
+<div class="mb-2">
+  <button class="btn btn-danger">Generate New Keypair</button>
+</div>
+
+<h3>Create Policy</h3>
+
+<form id="create-form" class="needs-validation" novalidate>
+  <div class="form-group">
+    <label for="pubkey">Public Key</label>
+    <input type="text" class="form-control" required id="pubkey" placeholder="Public key" aria-describedby="pubkey-help"
+      value="BBLewg4VqLR38b38daE7Fj\/uhr543uGrEpyoPFgmFZK6EZ9g2XdK\/i65RrSJ6sJ96aXD3DJHY3Me2GJQO9\/ifjE=">
+    <small id="pubkey-help">The public key of the policy.</small>
+  </div>
+  <div class="form-group">
+    <label for="privkey">Private Key</label>
+    <input type="text" class="form-control" required id="privkey" placeholder="Private key" aria-describedby="privkey-help"
+      value="D19GsDTGjLBX23J281SNpXWUdu+oL6hdAJ0Zh6IrRHA=">
+    <small id="pubkey-help">The private key of the policy.</small>
+  </div>
+  <div class="form-group">
+    <label for="label">Label</label>
+    <input type="text" class="form-control" required id="label" placeholder="Label" aria-describedby="label-help">
+    <small id="label-help">Descriptive label for the policy.</small>
+  </div>
+
+  <div id="operations-container"></div>
+  <div class="form-group">
+    <button type="button" class="btn btn-secondary" id="add-operation">Add Operation</button>
+    <p class="small">Some sensor IDs to try include (temperature ºC), 56 (humidity - %), 14 (light - lux), 53 (noise -
+      dBA), 10 (battery level - %)</p>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" id="create-btn">Create Policy</button>
+  </div>
+
+  <div id="policy-details">
+  </div>
+</form>
+
+<script type="text/template" class="template" id="operation-template">
+  <div class="form-group border rounded operation" style="padding: 1rem;">
+    <label>Operation</label>
+    <button type="button" class="close" data-dismiss="form-group" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="form-row">
+      <div class="col">
+        <label for="sensor_id" class="col-form-label col-form-label-sm">Sensor ID</label>
+        <input type="input" class="form-control form-control-sm" name="sensor_id" placeholder="55">
+      </div>
+      <div class="col">
+        <label for="action" class="col-form-label col-form-label-sm">Action</label>
+        <select class="custom-select custom-select-sm" name="action">
+          <option>SHARE</option>
+          <option>BIN</option>
+          <option>MOVING_AVG</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <label class="col-form-label col-form-label-sm" for="interval">Interval</label>
+        <input type="input" class="form-control form-control-sm" placeholder="300" name="interval">
+      </div>
+      <div class="col">
+        <label class="col-form-label col-form-label-sm" for="bins">Bins</label>
+        <input type="input" class="form-control form-control-sm" placeholder="30,60,90" name="bins">
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" class="template" id="policy-template">
+  <div class="alert alert-success">
+    <h4 class="alert-heading">Policy Created</h4>
+    <p>Please note down the following details as this is the only time they will be shown, and you will need these
+      details to delete the policy:</p>
+    <table class="table table-sm">
+      <tbody>
+        <tr>
+          <th>Policy ID</th>
+          <td>{{ policy_id }}</td>
+        </tr>
+        <tr>
+          <th>Policy Token</th>
+          <td>{{ token }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</script>
+
+<hr>
+
+<h3>Delete Policy</h3>
+
+<form id="delete-form">
+  <div class="form-group">
+    <label for="policy_id">Policy ID</label>
+    <input type="text" class="form-control" required id="policy_id" placeholder="Policy ID" aria-describedby="policy_id-help">
+    <small id="policy_id-help">The ID of the policy to delete.</small>
+  </div>
+  <div class="form-group">
+    <label for="token">Policy Token</label>
+    <input type="text" class="form-control" required id="token" placeholder="Policy token" aria-describedby="token-help">
+    <small id="token-help">The token of the policy to delete.</small>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" id="create-btn">Delete Policy</button>
+  </div>
+</form>

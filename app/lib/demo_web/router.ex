@@ -17,6 +17,9 @@ defmodule DecodeDemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/policies", PageController, :policies
+    get "/encoder", PageController, :encoder
+    get "/datastore", PageController, :datastore
   end
 
   # Other scopes may use custom stacks.
