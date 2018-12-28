@@ -77,6 +77,40 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
 
+  <script async type="text/javascript" src="index.js"></script>
+  <script type="text/javascript">
+    let final_output = ""
+
+    var Module = {
+      preRun: [],
+      postRun: [],
+      print: (function () {
+        return function (text) {
+          if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+          final_output += text
+        };
+      })(),
+      printErr: function (text) {
+        if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+        /*
+          if (text.startsWith('[!]')) {
+            $(`<span class='bg-danger'>${text}</span><br>`).appendTo("#output")
+            return
+          }
+        */
+        console.error(text)
+      },
+      exec_ok: () => {
+        //$("#play").hide()
+        //$("#play-icon").show()
+      },
+      exec_error: () => {
+        //$("#play").hide()
+        //$("#play-icon").show()
+      },
+    };
+
+  </script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 </body>
 

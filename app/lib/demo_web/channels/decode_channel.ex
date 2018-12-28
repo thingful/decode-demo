@@ -18,13 +18,31 @@ defmodule DecodeDemoWeb.DecodeChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (decode:lobby).
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+    broadcast(socket, "shout", payload)
     {:noreply, socket}
   end
 
   def handle_in("create_policy", payload, socket) do
-    {:ok, policy} = DecodeDemo.Policystore.create_policy(payload)
-    push(socket, "new_policy", policy)
+    case DecodeDemo.Policystore.create_policy(payload) do
+      {:ok, policy} ->
+        push(socket, "new_policy", policy)
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("delete_policy", payload, socket) do
+    case DecodeDemo.Policystore.delete_policy(payload) do
+      {:ok, _} ->
+        push(socket, "policy_deleted", %{})
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+
     {:noreply, socket}
   end
 

@@ -8,4 +8,8 @@ defmodule DecodeDemoWeb.PageController do
   def policies(conn, _params) do
     render(conn, "policies.html", title: "Policy Store")
   end
+
+  def encoder(conn, _params) do
+    render(conn, "encoder.html", title: "Encoder")
+  end
 end

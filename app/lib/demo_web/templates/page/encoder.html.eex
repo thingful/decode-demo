@@ -1,0 +1,85 @@
+<form id="encoder-form">
+  <div class="video-container"><video id="preview"></video></div>
+  <div class="form-group">
+    <label for="device-token">Device Token</label>
+    <input type="text" class="form-control" id="device-token" placeholder="e.g. e40af1">
+    <p class="form-text text-muted small">If you want a sample device token to try some examples are: <b>e40af1</b>,
+      <b>53deea</b>, or <b>91d4e4</b>.</p>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <div class="form-group">
+        <label for="longitude">Longitude</label>
+        <input type="text" class="form-control" id="longitude" placeholder="e.g. 2.123">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="latitude">Latitude</label>
+        <input type="text" class="form-control" id="latitude" placeholder="e.g. 2.123">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Exposure</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exposure" value="INDOOR" id="exposure-indoor" checked>
+          <label class="form-check-label" for="exposure-indoor">Indoor</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exposure" value="OUTDOOR" id="exposure-outdoor">
+          <label class="form-check-label" for="exposure-outdoor">Outdoor</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="policies">Policy</label>
+    <select id="policy-select" class="form-control">
+      <option value="">Please choose a policy to apply</option>
+    </select>
+    <button type="button" class="btn btn-secondary mt-3" id="load-policies-btn">Load Policies</button>
+  </div>
+
+  <div id="policy-container">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">My Policy</h4>
+        <h5 class="card-subtitle my-2">Operations</h5>
+        <table class="table table-sm table-striped small">
+          <thead>
+            <tr>
+              <th>Sensor</th>
+              <th>Operation</th>
+              <th>Interval</th>
+              <th>Bins</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>55</td>
+              <td>SHARE</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>56</td>
+              <td>MOVING_AVG</td>
+              <td>300</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>56</td>
+              <td>BIN</td>
+              <td></td>
+              <td>30,60,90</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="policy-value">
+</form>

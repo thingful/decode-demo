@@ -6,7 +6,7 @@ defmodule DecodeDemo.Policystore do
   @prefix "/twirp/decode.iot.policystore.PolicyStore/"
 
   defp endpoint do
-    System.get_env("POLICYSTORE_ENDPOINT") || @default_endpoint
+    System.get_env("POLICYSTORE_BASE_URL") || @default_endpoint
   end
 
   def process_request_url(url) do
@@ -31,8 +31,10 @@ defmodule DecodeDemo.Policystore do
     case post("CreateEntitlementPolicy", request) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, body}
+
       {:ok, %HTTPoison.Response{body: body}} ->
         {:error, body}
+
       {:error, error} ->
         {:error, error}
     end
@@ -42,10 +44,12 @@ defmodule DecodeDemo.Policystore do
     case post("DeleteEntitlementPolicy", request) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, body}
+
       {:ok, %HTTPoison.Response{body: body}} ->
         {:error, body}
+
       {:error, error} ->
-        {:error, error}
+        {:error, %{"msg" => error}}
     end
   end
 
@@ -53,8 +57,10 @@ defmodule DecodeDemo.Policystore do
     case post("ListEntitlementPolicies", %{}) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, body}
+
       {:ok, %HTTPoison.Response{body: body}} ->
         {:error, body}
+
       {:error, error} ->
         {:error, error}
     end

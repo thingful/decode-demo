@@ -13,7 +13,8 @@ defmodule DecodeDemoWeb.Endpoint do
     at: "/",
     from: :demo,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt index.wasm index.data index.js),
+    content_types: %{"index.wasm" => "application/wasm"}
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
