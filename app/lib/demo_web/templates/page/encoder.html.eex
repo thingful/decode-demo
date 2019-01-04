@@ -1,5 +1,16 @@
+<button class="btn btn-secondary mb-3" type="button" data-toggle="collapse" data-target="#video-container"
+  aria-expanded="false" aria-controls="video-container" id="toggle-camera-button">
+  Start Camera
+</button>
+
+<div class="row">
+  <div class="col">
+    <div class="video-container collapse" id="video-container"><video id="preview" style="width: 100%;"></video></div>
+  </div>
+</div>
+
 <form id="create-stream-form">
-  <!--<div class="video-container"><video id="preview"></video></div>-->
+  <h4>Create Stream</h4>
   <div class="form-group">
     <label for="device-token">Device Token</label>
     <input type="text" class="form-control" id="device-token" placeholder="e.g. e40af1">

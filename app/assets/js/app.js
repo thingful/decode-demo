@@ -10,6 +10,7 @@ import css from '../css/app.css'
 // Import dependencies
 //
 import 'phoenix_html'
+import Instascan from 'instascan';
 
 // Import local files
 //
@@ -26,6 +27,8 @@ _.templateSettings = {
 let channel = socket.channel('decode:lobby', {})
 
 var policies;
+
+var scanner;
 
 channel.join()
   .receive('ok', resp => { console.log('Joined successfully', resp) })
@@ -94,6 +97,8 @@ $(document).ready(() => {
   $('#start-time').val(startTime.format('HH:mm'));
   $('#end-date').val(endTime.format('YYYY-MM-DD'));
   $('#end-time').val(endTime.format('HH:mm'));
+
+  initializeScanner();
 });
 
 $('#create-form').on('submit', function (e) {
@@ -151,6 +156,25 @@ $('#policy-select').on('change', function () {
     $('#policy-value').val(JSON.stringify(policy));
   }
 });
+
+$('#video-container').on('show.bs.collapse', () => {
+  $('#toggle-camera-button').html('Stop Camera');
+
+  Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+      scanner.start(cameras[0]);
+    } else {
+      console.error('No cameras found.');
+    }
+  }).catch(function (e) {
+    console.error(e);
+  });
+})
+
+$('#video-container').on('hide.bs.collapse', () => {
+  $('#toggle-camera-button').html('Start Camera');
+  scanner.stop();
+})
 
 function createPolicy() {
   var pubkey = $('#pubkey').val();
@@ -285,4 +309,23 @@ function readData() {
 
   console.log(readRequestMsg);
   channel.push('read_data', readRequestMsg);
+}
+
+function initializeScanner() {
+  let element = $('#preview')[0];
+  if (element) {
+    scanner = new Instascan.Scanner({ video: element });
+    scanner.addListener('scan', (content) => {
+      console.log(content);
+    });
+    //Instascan.Camera.getCameras().then(function (cameras) {
+    //  if (cameras.length > 0) {
+    //    scanner.start(cameras[0]);
+    //  } else {
+    //    console.error('No cameras found.');
+    //  }
+    //}).catch(function (e) {
+    //  console.error(e);
+    //});
+  }
 }
