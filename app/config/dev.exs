@@ -7,7 +7,13 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :demo, DecodeDemoWeb.Endpoint,
-  http: [port: 4000],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  https: [
+    otp_app: :demo,
+    port: 4000,
+    keyfile: "priv/cert/decodedemo.dev+3-key.pem",
+    certfile: "priv/cert/decodedemo.dev+3.pem"
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
