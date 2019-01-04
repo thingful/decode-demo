@@ -42,9 +42,9 @@
       <div id="operations-container"></div>
       <div class="form-group">
         <button type="button" class="btn btn-secondary" id="add-operation">Add Operation</button>
-        <p class="small">Some sensor IDs to try include (temperature ºC), 56 (humidity - %), 14 (light - lux), 53
-          (noise -
-          dBA), 10 (battery level - %)</p>
+        <p class="small">Some sensor IDs to try include <b>55</b> (temperature ºC), <b>56</b> (humidity - %), <b>14</b>
+          (light - lux), <b>53</b>
+          (noise - dBA), or <b>10</b> (battery level - %)</p>
       </div>
 
       <div class="form-group">
@@ -64,7 +64,7 @@
         <div class="form-row">
           <div class="col">
             <label for="sensor_id" class="col-form-label col-form-label-sm">Sensor ID</label>
-            <input type="input" class="form-control form-control-sm" name="sensor_id" placeholder="55">
+            <input type="input" class="form-control form-control-sm" name="sensor_id" placeholder="e.g. 55">
           </div>
           <div class="col">
             <label for="action" class="col-form-label col-form-label-sm">Action</label>
@@ -77,12 +77,12 @@
         </div>
         <div class="form-row">
           <div class="col">
-            <label class="col-form-label col-form-label-sm" for="interval">Interval</label>
-            <input type="input" class="form-control form-control-sm" placeholder="300" name="interval">
+            <label class="col-form-label col-form-label-sm" for="interval">Interval (seconds)</label>
+            <input type="input" class="form-control form-control-sm" placeholder="e.g. 300" name="interval">
           </div>
           <div class="col">
             <label class="col-form-label col-form-label-sm" for="bins">Bins</label>
-            <input type="input" class="form-control form-control-sm" placeholder="30,60,90" name="bins">
+            <input type="input" class="form-control form-control-sm" placeholder="e.g. 30,60,90" name="bins">
           </div>
         </div>
       </div>
@@ -99,13 +99,13 @@
             <th>ID</th>
           </tr>
           <tr>
-            <td>{{ policy_id }}</td>
+            <td><<= policy_id >></td>
           </tr>
           <tr>
             <th>Token</th>
           </tr>
           <tr>
-            <td>{{ token }}</td>
+            <td><<= token >></td>
           </tr>
         </tbody>
       </table>

@@ -1,5 +1,5 @@
-<form id="encoder-form">
-  <div class="video-container"><video id="preview"></video></div>
+<form id="create-stream-form">
+  <!--<div class="video-container"><video id="preview"></video></div>-->
   <div class="form-group">
     <label for="device-token">Device Token</label>
     <input type="text" class="form-control" id="device-token" placeholder="e.g. e40af1">
@@ -11,13 +11,13 @@
     <div class="col">
       <div class="form-group">
         <label for="longitude">Longitude</label>
-        <input type="text" class="form-control" id="longitude" placeholder="e.g. 2.123">
+        <input type="text" class="form-control" id="longitude" placeholder="e.g. 2.1567">
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <label for="latitude">Latitude</label>
-        <input type="text" class="form-control" id="latitude" placeholder="e.g. 2.123">
+        <input type="text" class="form-control" id="latitude" placeholder="e.g. 41.4016">
       </div>
     </div>
     <div class="col">
@@ -44,42 +44,61 @@
   </div>
 
   <div id="policy-container">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">My Policy</h4>
-        <h5 class="card-subtitle my-2">Operations</h5>
-        <table class="table table-sm table-striped small">
-          <thead>
-            <tr>
-              <th>Sensor</th>
-              <th>Operation</th>
-              <th>Interval</th>
-              <th>Bins</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>55</td>
-              <td>SHARE</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>56</td>
-              <td>MOVING_AVG</td>
-              <td>300</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>56</td>
-              <td>BIN</td>
-              <td></td>
-              <td>30,60,90</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
   <input type="hidden" id="policy-value">
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary mt-3" id="create-stream-button">Create Stream</button>
+  </div>
+</form>
+
+<script type="text/template" class="template" id="policy-template">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title"><<= label >></h4>
+      <h5 class="card-subtitle my-2">Operations</h5>
+      <table class="table table-sm table-striped small">
+        <thead>
+          <tr>
+            <th>Sensor</th>
+            <th>Operation</th>
+            <th>Interval</th>
+            <th>Bins</th>
+          </tr>
+        </thead>
+        <tbody>
+          << _.each(operations, function(o) { >>
+          <tr>
+            <td><<= o.sensor_id >></td>
+            <td><<= o.action >></td>
+            <td><<= o.interval >></td>
+            <td><<= o.bins >></td>
+          </tr>
+          << }) >>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</script>
+
+<hr>
+
+<div class="row">
+  <div class="col" id="stream-alert"></div>
+</div>
+
+<form id="delete-stream-form">
+  <div class="form-group">
+    <label for="stream-uid">Stream UID</label>
+    <input type="text" class="form-control" id="stream-uid" placeholder="e.g. kYerjeXM">
+  </div>
+
+  <div class="form-group">
+    <label for="stream-token">Stream Token</label>
+    <input type="text" class="form-control" id="stream-token" placeholder="e.g. Hzlzq7D7rPLUnWsWHOdc9AuBdJ24U1bP">
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-danger mt-3" id="delete-stream-button">Delete Stream</button>
+  </div>
 </form>

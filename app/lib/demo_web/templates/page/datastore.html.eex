@@ -1,0 +1,60 @@
+<form id="read-data-form">
+  <div class="form-group">
+    <label for="policy-id">Policy UID</label>
+    <input type="text" class="form-control" id="policy-id" placeholder="e.g. YLw1oRVK">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="start-date">Start Date</label>
+      <input type="date" id="start-date" class="form-control">
+    </div>
+    <div class="form-group col-6">
+      <label for="start-time">Start Time</label>
+      <input type="time" id="start-time" class="form-control">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="end-date">End Date</label>
+      <input type="date" id="end-date" class="form-control">
+    </div>
+    <div class="form-group col-6">
+      <label for="end-time">End Time</label>
+      <input type="time" id="end-time" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary mt-3" id="read-data-button">Read Data</button>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <h4>Encrypted Data</h4>
+      <textarea class="form-control" id="data" rows="8" readonly></textarea>
+    </div>
+  </div>
+</div>
+
+<hr>
+<h3>Decrypt Data</h3>
+
+<form id="decrypt-data-form">
+  <div class="form-group">
+    <label for="private-key">Policy Private Key</label>
+    <input type="text" class="form-control" id="private-key" value="D19GsDTGjLBX23J281SNpXWUdu+oL6hdAJ0Zh6IrRHA=">
+    <small>Enter the private key for the policy in order to decrypt the data</small>
+  </div>
+
+  <div class="form-group">
+    <label for="data">Decrypted Data</label>
+    <textarea class="form-control" id="decrypted-data" rows="8" readonly></textarea>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-success mt-3" id="decrypt-data-button">Decrypt Data</button>
+  </div>
+</form>

@@ -61,8 +61,8 @@
   </div>
 
   <script type="text/template" class="template" id="alert-template">
-    <div class="alert alert-{{ level }}">
-      {{ message }}
+    <div class="alert alert-<<= level >>">
+      <<= message >>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
