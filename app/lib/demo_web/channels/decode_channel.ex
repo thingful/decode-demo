@@ -46,6 +46,52 @@ defmodule DecodeDemoWeb.DecodeChannel do
     {:noreply, socket}
   end
 
+  def handle_in("load_policies", _payload, socket) do
+    case DecodeDemo.Policystore.list_policies() do
+      {:ok, policies} ->
+        push(socket, "policies_loaded", policies)
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("create_stream", payload, socket) do
+    case DecodeDemo.Encoder.create_stream(payload) do
+      {:ok, stream} ->
+        push(socket, "new_stream", stream)
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("delete_stream", payload, socket) do
+    case DecodeDemo.Encoder.delete_stream(payload) do
+      {:ok, _} ->
+        push(socket, "stream_deleted", %{})
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+
+    {:noreply, socket}
+  end
+
+  def handle_in("read_data", payload, socket) do
+    case DecodeDemo.Datastore.read_data(payload) do
+      {:ok, events} ->
+        push(socket, "data", events)
+
+      {:error, msg} ->
+        push(socket, "error", msg)
+    end
+  end
+
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
