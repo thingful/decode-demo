@@ -12,4 +12,8 @@ defmodule DecodeDemoWeb.PageController do
   def encoder(conn, _params) do
     render(conn, "encoder.html", title: "Encoder")
   end
+
+  def datastore(conn, _params) do
+    render(conn, "datastore.html", title: "Datastore")
+  end
 end
