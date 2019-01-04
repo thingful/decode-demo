@@ -26,4 +26,30 @@ defmodule DecodeDemo.Encoder do
     body
     |> Jason.decode!()
   end
+
+  def create_stream(request) do
+    case post("CreateStream", request) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, body}
+
+      {:ok, %HTTPoison.Response{body: body}} ->
+        {:error, body}
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
+
+  def delete_stream(request) do
+    case post("DeleteStream", request) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, body}
+
+      {:ok, %HTTPoison.Response{body: body}} ->
+        {:error, body}
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
 end
