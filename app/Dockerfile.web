@@ -20,7 +20,7 @@ RUN mix deps.get && \
     mix compile && \
     cd assets && \
     npm install && \
-    npm run build && \
+    npm run deploy && \
     cd .. && \
     mix phx.digest
 
@@ -28,7 +28,7 @@ RUN mix release --env=prod
 
 RUN mkdir -p /app/target
 
-RUN tar zxf /app/_build/prod/rel/alva/releases/$(cat mix.exs| grep version: | head -n1 | awk -F: '{print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')/alva.tar.gz -C /app/target
+RUN tar zxf /app/_build/prod/rel/demo/releases/$(cat mix.exs| grep version: | head -n1 | awk -F: '{print $2}' | sed 's/[\",]//g' | tr -d '[[:space:]]')/demo.tar.gz -C /app/target
 
 FROM alpine:3.8
 
