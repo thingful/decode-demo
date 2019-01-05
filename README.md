@@ -48,5 +48,5 @@ it is configured:
 | SECRET_KEY_BASE      | Cryptographic string used to sign cookies (use phx.gen.secret) | -                     | Required          |
 | DATASTORE_BASE_URL   | Base URL for the datastore component                           | http://localhost:8080 | Optional          |
 | ENCODER_BASE_URL     | Base URL for the encoder component                             | http://localhost:8081 | Optional          |
-| DATASTORE_BASE_URL   | Base URL for the policy store component                        | http://localhost:8082 | Optional          |
+| POLICYSTORE_BASE_URL | Base URL for the policy store component                        | http://localhost:8082 | Optional          |
 
