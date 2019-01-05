@@ -20,6 +20,7 @@ defmodule DecodeDemoWeb.Router do
     get "/policies", PageController, :policies
     get "/encoder", PageController, :encoder
     get "/datastore", PageController, :datastore
+    get "/onboarding", PageController, :onboarding
   end
 
   # Other scopes may use custom stacks.

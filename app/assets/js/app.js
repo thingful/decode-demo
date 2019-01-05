@@ -10,6 +10,8 @@ import css from '../css/app.css'
 // Import dependencies
 //
 import 'phoenix_html'
+import Instascan from 'instascan';
+import QRCode from 'qrcode';
 
 // Import local files
 //
@@ -26,6 +28,8 @@ _.templateSettings = {
 let channel = socket.channel('decode:lobby', {})
 
 var policies;
+
+var scanner;
 
 channel.join()
   .receive('ok', resp => { console.log('Joined successfully', resp) })
@@ -94,6 +98,8 @@ $(document).ready(() => {
   $('#start-time').val(startTime.format('HH:mm'));
   $('#end-date').val(endTime.format('YYYY-MM-DD'));
   $('#end-time').val(endTime.format('HH:mm'));
+
+  initializeScanner();
 });
 
 $('#create-form').on('submit', function (e) {
@@ -150,6 +156,29 @@ $('#policy-select').on('change', function () {
     $('#policy-container').html(template(policy));
     $('#policy-value').val(JSON.stringify(policy));
   }
+});
+
+$('#video-container').on('show.bs.collapse', () => {
+  $('#toggle-camera-button').html('Stop Camera');
+
+  Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+      scanner.start(cameras[0]);
+    } else {
+      console.error('No cameras found.');
+    }
+  }).catch(function (e) {
+    console.error(e);
+  });
+});
+
+$('#video-container').on('hide.bs.collapse', () => {
+  $('#toggle-camera-button').html('Start Camera');
+  scanner.stop();
+});
+
+$('.code-input').on('change keyup', (e) => {
+  updateQRCode();
 });
 
 function createPolicy() {
@@ -285,4 +314,48 @@ function readData() {
 
   console.log(readRequestMsg);
   channel.push('read_data', readRequestMsg);
+}
+
+function updateQRCode() {
+  let token = $('#device-token').val();
+  let longitude = $('#longitude').val();
+  let latitude = $('#latitude').val();
+  let exposure = $('input[name="exposure"]:checked').val();
+
+  setQRCode({
+    exposure: exposure,
+    token: token,
+    longitude: longitude,
+    latitude: latitude
+  });
+}
+
+function setQRCode(obj) {
+  let element = $('#onboarding-code')[0];
+  if (element) {
+    QRCode.toCanvas(element, JSON.stringify(obj), { scale: 8 }, (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+
+function initializeScanner() {
+  let element = $('#preview')[0];
+  if (element) {
+    scanner = new Instascan.Scanner({ video: element });
+    scanner.addListener('scan', (content) => {
+      let onboardingInfo = JSON.parse(content);
+      $('#device-token').val(onboardingInfo.token);
+      $('#longitude').val(onboardingInfo.longitude);
+      $('#latitude').val(onboardingInfo.latitude);
+      if (onboardingInfo.exposure === "INDOOR") {
+        $('#exposure-indoor').prop('checked', true);
+      } else {
+        $('#exposure-outdoor').prop('checked', true);
+      }
+    });
+  }
 }

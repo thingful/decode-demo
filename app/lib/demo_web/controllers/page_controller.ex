@@ -16,4 +16,8 @@ defmodule DecodeDemoWeb.PageController do
   def datastore(conn, _params) do
     render(conn, "datastore.html", title: "Datastore")
   end
+
+  def onboarding(conn, _params) do
+    render(conn, "onboarding.html", title: "Onboarding")
+  end
 end
