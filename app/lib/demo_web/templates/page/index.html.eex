@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm">
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">Policy Store</h5>
         <p class="card-text">This page provides a simple interface to the policy store service, which allows policies
@@ -9,11 +9,21 @@
         <a class="btn btn-primary" href="/policies">Open Service</a>
       </div>
     </div>
-    <br>
   </div>
 
   <div class="col-sm">
-    <div class="card">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Onboarding</h5>
+        <p class="card-text">This page provides QR code generator that simulates the end of the onboarding flow at
+          SmartCitizen.</p>
+        <a class="btn btn-primary" href="/onboarding">Open Service</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm">
+    <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">Encoder Service</h5>
         <p class="card-text">This page provides a simple interface to the stream encoder service, and allows you to
@@ -21,11 +31,10 @@
         <a class="btn btn-primary" href="/encoder">Open Service</a>
       </div>
     </div>
-    <br>
   </div>
 
   <div class="col-sm">
-    <div class="card">
+    <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">Datastore</h5>
         <p class="card-text">This page provides a simple interface to the encrypted data store, which allows you to
@@ -34,6 +43,5 @@
         <a class="btn btn-primary" href="/datastore">Open Service</a>
       </div>
     </div>
-    <br>
   </div>
 </div>

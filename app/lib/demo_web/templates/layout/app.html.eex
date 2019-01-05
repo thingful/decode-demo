@@ -35,6 +35,9 @@
           <li class="nav-item <%= if current_path(@conn) == "/policies", do: "active" , else: "" %>">
             <a class="nav-link" href="/policies">Policy store</a>
           </li>
+          <li class="nav-item <%= if current_path(@conn) == "/onboarding", do: "active" , else: "" %>">
+            <a class="nav-link" href="/onboarding">Onboarding</a>
+          </li>
           <li class="nav-item <%= if current_path(@conn) == "/encoder", do: "active" , else: "" %>">
             <a class="nav-link" href="/encoder">Encoder (App Simulation)</a>
           </li>
