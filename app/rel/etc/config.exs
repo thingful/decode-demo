@@ -1,0 +1,5 @@
+use Mix.Config
+
+config :demo, DecodeDemoWeb.Endpoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  url: [host: System.get_env("HOST"), port: {:system, "PORT"}]
