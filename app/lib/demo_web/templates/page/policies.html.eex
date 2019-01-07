@@ -1,5 +1,7 @@
-<p>This page sends requests to the IoT policystore to create or delete policies. To use this page you must
-  supply a valid public key as we do not use Zenroom in this page to create new key pairs.</p>
+<p>
+  This page sends requests to the IoT policystore to create or delete policies. We supply a default key pair in the
+  form, but the page also allows new key pairs to be created using Zenroom in the browser.
+</p>
 
 <ul class="nav nav-tabs" role="tablist" id="policy-tabs">
   <li class="nav-item">
