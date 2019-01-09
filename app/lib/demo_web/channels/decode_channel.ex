@@ -90,6 +90,8 @@ defmodule DecodeDemoWeb.DecodeChannel do
       {:error, msg} ->
         push(socket, "error", msg)
     end
+
+    {:noreply, socket}
   end
 
   # Add authorization logic here as required.
