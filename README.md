@@ -49,4 +49,7 @@ it is configured:
 | DATASTORE_BASE_URL   | Base URL for the datastore component                           | http://localhost:8080 | Optional          |
 | ENCODER_BASE_URL     | Base URL for the encoder component                             | http://localhost:8081 | Optional          |
 | POLICYSTORE_BASE_URL | Base URL for the policy store component                        | http://localhost:8082 | Optional          |
-
+| HOST                 | The host where the application is deployed                     | localhost             | Optional
+       |
+| PORT                 | The port on which we listen over HTTP                          |                       | Required          |
+| TLS_PORT             | The port on which we listen over HTTPS (requires certs)        |                       | Optional          |
