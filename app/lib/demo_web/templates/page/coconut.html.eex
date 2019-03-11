@@ -1,0 +1,11 @@
+<h3>Workflow</h3>
+
+<form id="coconut-form">
+  <div class="form-group">
+    <button type="button" class="btn btn-primary mt-3" id="run-coconut-button">Run workflow</button>
+  </div>
+
+  <div class="form-row">
+    <textarea readonly="true" class="form-control" id="coconut-output" rows="20"></textarea>
+  </div>
+</form>
