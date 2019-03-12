@@ -32,7 +32,7 @@ RUN tar zxf /app/_build/prod/rel/demo/releases/$(cat mix.exs| grep version: | he
 
 FROM alpine:3.8
 
-LABEL maintainer="Sam Mulube <sam@umbrellium.co.uk>"
+LABEL maintainer="Sam Mulube <sam@thingful.net>"
 
 RUN apk add --update --no-cache \
   ncurses-libs \
