@@ -1,5 +1,10 @@
 <h3>Workflow</h3>
 
+<p>On pressing the Run Workflow button below we attempt to run the first 8
+steps of the Coconut blind proof credential generation and verification. In
+the real system these processes are executed by cooperating services, but
+here they all run in the browser.</p>
+
 <form id="coconut-form">
   <div class="form-group">
     <button type="button" class="btn btn-primary mt-3" id="run-coconut-button">Run workflow</button>
