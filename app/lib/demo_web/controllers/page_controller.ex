@@ -20,4 +20,8 @@ defmodule DecodeDemoWeb.PageController do
   def onboarding(conn, _params) do
     render(conn, "onboarding.html", title: "Onboarding")
   end
+
+  def coconut(conn, _params) do
+    render(conn, "coconut.html", title: "Coconut")
+  end
 end

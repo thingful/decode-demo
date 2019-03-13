@@ -13,6 +13,8 @@ IMAGE := thingful/decode-demo
 TAGGED_IMAGE := $(IMAGE):$(VERSION)
 LATEST_IMAGE := $(IMAGE):latest
 
+APP_NAME := decode-webapp
+
 .PHONY: version
 version: ## Display the current version
 	echo $(VERSION)
@@ -71,3 +73,8 @@ dist-shell: ## Open a shell inside the release container
 docker-push: ## Push generated images to Docker hub
 	@docker push $(TAGGED_IMAGE)
 	@docker push $(LATEST_IMAGE)
+
+.PHONY: heroku-push
+heroku-push: ## Push and deploy to heroku
+	@heroku container:push web --recursive --app $(APP_NAME)
+	@heroku container:release web --app $(APP_NAME)

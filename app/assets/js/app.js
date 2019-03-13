@@ -18,6 +18,7 @@ import QRCode from 'qrcode';
 // Local files can be imported directly using relative paths, for example:
 import socket from './socket'
 import scripts from './zenroom';
+import { debug } from 'util';
 
 _.templateSettings = {
   evaluate: /<<([\s\S]+?)>>/g,
@@ -181,6 +182,10 @@ $('.code-input').on('change keyup', (e) => {
   updateQRCode();
 });
 
+$('#run-coconut-button').on('click', () => {
+  runCoconut();
+});
+
 function createPolicy() {
   var pubkey = $('#pubkey').val();
   var label = $('#label').val()
@@ -231,15 +236,74 @@ function deletePolicy() {
   channel.push('delete_policy', deletePolicyMsg);
 }
 
+function zenroomExec(script, options = {}) {
+  let defaults = {
+    verbosity: 1
+  };
+
+  let actual = Object.assign({}, defaults, options);
+  outputBuffer = '';
+  Module.ccall('zenroom_exec',
+    'number',
+    ['string', 'string', 'string', 'string', 'number'],
+    [script, actual.conf, actual.keys, actual.data, actual.verbosity]
+  )
+
+  return outputBuffer;
+}
+
+function debugCoconut(msg) {
+  $('#coconut-output').append('-------------------------------------\n');
+  $('#coconut-output').append(msg);
+  $('#coconut-output').append('\n-------------------------------------\n');
+}
+
+// zenroom exec is: script, conf, keys, data, verbosity
+function runCoconut() {
+  $('#coconut-output').html('');
+
+  $('#coconut-output').append('+ 01 - Creating citizen keypair\n');
+  let citizenKey = zenroomExec(scripts.citizen.generateKeypair);
+  debugCoconut(citizenKey);
+
+  $('#coconut-output').append('+ 02 - Creating citizen credential request\n');
+  let credentialRequest = zenroomExec(scripts.citizen.credentialRequest, { keys: citizenKey });
+  debugCoconut(credentialRequest);
+
+  $('#coconut-output').append('+ 03 - Creating issuer keypair\n');
+  let issuerKey = zenroomExec(scripts.issuer.generateKeypair);
+  debugCoconut(issuerKey);
+
+  $('#coconut-output').append('+ 04 - Creating issuer verification key\n');
+  let issuerPublicVerification = zenroomExec(scripts.issuer.publishVerifier, { keys: issuerKey });
+  debugCoconut(issuerPublicVerification);
+
+  $('#coconut-output').append('+ 05 - Signing request for citizen\n');
+  let signedCredential = zenroomExec(scripts.issuer.signingRequest, { data: credentialRequest, keys: issuerKey });
+  debugCoconut(signedCredential);
+
+  $('#coconut-output').append('+ 06 - Citizen create aggregated credential\n');
+  let aggregatedCredential = zenroomExec(scripts.citizen.aggregateCredential, { keys: citizenKey, data: signedCredential });
+  debugCoconut(aggregatedCredential);
+
+  $('#coconut-output').append('+ 07 - Citizen create blind proof\n');
+  let blindProof = zenroomExec(scripts.citizen.generateBlindCredential, { data: issuerPublicVerification, keys: aggregatedCredential });
+  debugCoconut(blindProof);
+
+  $('#coconut-output').append('+ 08 - Verifier verify credential\n');
+  let verifyResponse = zenroomExec(scripts.verifier.verifyCredential, { data: issuerPublicVerification, keys: blindProof });
+  debugCoconut(verifyResponse);
+}
+
 function generateKey() {
   console.log('generating key');
-  final_output = '';
+  outputBuffer = '';
   Module.ccall('zenroom_exec',
     'number',
     ['string', 'string', 'string', 'string', 'number'],
     [scripts.generateKey, null, null, null, 1]
   );
-  let parsedResponse = JSON.parse(final_output);
+  let parsedResponse = JSON.parse(outputBuffer);
   $('#pubkey').val(parsedResponse.public);
   $('#privkey').val(parsedResponse.private);
 }
@@ -254,14 +318,14 @@ function decryptData() {
   console.log(keys);
   console.log(event);
 
-  final_output = '';
+  outputBuffer = '';
   Module.ccall('zenroom_exec',
     'number',
     ['string', 'string', 'string', 'string', 'number'],
     [scripts.decrypt, null, keys, atob(event.data), 1]
   );
 
-  let parsedResponse = JSON.parse(final_output);
+  let parsedResponse = JSON.parse(outputBuffer);
   $('#decrypted-data').val(parsedResponse.data);
 }
 
